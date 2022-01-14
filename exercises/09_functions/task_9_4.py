@@ -59,8 +59,4 @@ def ignore_command(command, ignore):
     * True if the command contains a word from the ignore list
     * False - if not
     """
-    ignore_status = False
-    for word in ignore:
-        if word in command:
-            ignore_status = True
-    return ignore_status
+    return any(word in command for word in ignore)

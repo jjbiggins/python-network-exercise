@@ -90,13 +90,12 @@ class CustomTasksType(click.ParamType):
             if match:
                 if task == "all":
                     return value
-                else:
-                    if match.group("letters_range"):
-                        task = f"{task[0]}[{task[1:]}]"  # convert 1a-c to 1[a-c]
-                    elif match.group("numbers_range"):
-                        task = f"[{task}]"  # convert 1-3 to [1-3]
+                if match.group("letters_range"):
+                    task = f"{task[0]}[{task[1:]}]"  # convert 1a-c to 1[a-c]
+                elif match.group("numbers_range"):
+                    task = f"[{task}]"  # convert 1-3 to [1-3]
 
-                    test_files += glob(f"test_task_{current_chapter}_{task}.py")
+                test_files += glob(f"test_task_{current_chapter}_{task}.py")
             else:
                 self.fail(
                     red(
@@ -140,14 +139,12 @@ def current_chapter_id():
     """
     pth = str(pathlib.Path().absolute())
     last_dir = os.path.split(pth)[-1]
-    current_chapter = int(last_dir.split("_")[0])
-    return current_chapter
+    return int(last_dir.split("_")[0])
 
 
 def current_dir_name():
     pth = str(pathlib.Path().absolute())
-    current_chapter_name = os.path.split(pth)[-1]
-    return current_chapter_name
+    return os.path.split(pth)[-1]
 
 
 def parse_json_report(report):
@@ -155,18 +152,16 @@ def parse_json_report(report):
     Selects parts from the pytest run report in JSON format.
     Returns a list of passedd tests.
     """
-    if report and report["summary"]["total"] != 0:
-        all_tests = defaultdict(list)
-        summary = report["summary"]
-
-        test_names = [test["nodeid"] for test in report["collectors"][0]["result"]]
-        for test in report["tests"]:
-            name = test["nodeid"].split("::")[0]
-            all_tests[name].append(test["outcome"] == "passed")
-        all_passed_tasks = [name for name, outcome in all_tests.items() if all(outcome)]
-        return all_passed_tasks
-    else:
+    if not report or report["summary"]["total"] == 0:
         return []
+    all_tests = defaultdict(list)
+    summary = report["summary"]
+
+    test_names = [test["nodeid"] for test in report["collectors"][0]["result"]]
+    for test in report["tests"]:
+        name = test["nodeid"].split("::")[0]
+        all_tests[name].append(test["outcome"] == "passed")
+    return [name for name, outcome in all_tests.items() if all(outcome)]
 
 
 def copy_answers(passed_tasks):
@@ -201,15 +196,14 @@ def copy_answers(passed_tasks):
         )
         os.chdir(homedir)
         shutil.rmtree("pyneng-answers-en", onerror=remove_readonly)
-    else:
-        if "could not resolve host" in stderr.lower():
-            raise PynengError(
-                red(
-                    "Failed to copy answers. Perhaps there is no internet access?"
-                )
+    elif "could not resolve host" in stderr.lower():
+        raise PynengError(
+            red(
+                "Failed to copy answers. Perhaps there is no internet access?"
             )
-        else:
-            raise PynengError(red("Failed to copy answers."))
+        )
+    else:
+        raise PynengError(red("Failed to copy answers."))
     os.chdir(pth)
 
 

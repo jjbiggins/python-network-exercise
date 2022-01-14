@@ -36,8 +36,7 @@ class ConnectSSH:
     def send_show_command(self, command):
         self._ssh.send(command + "\n")
         time.sleep(2)
-        result = self._ssh.recv(self._MAX_READ).decode("ascii")
-        return result
+        return self._ssh.recv(self._MAX_READ).decode("ascii")
 
     def send_config_commands(self, commands):
         if isinstance(commands, str):
@@ -45,8 +44,7 @@ class ConnectSSH:
         for command in commands:
             self._ssh.send(command + "\n")
             time.sleep(0.5)
-        result = self._ssh.recv(self._MAX_READ).decode("ascii")
-        return result
+        return self._ssh.recv(self._MAX_READ).decode("ascii")
 
 
 class CiscoSSH(ConnectSSH):
@@ -62,14 +60,12 @@ class CiscoSSH(ConnectSSH):
     def config_mode(self):
         self._ssh.send("conf t\n")
         time.sleep(0.5)
-        result = self._ssh.recv(self._MAX_READ).decode("ascii")
-        return result
+        return self._ssh.recv(self._MAX_READ).decode("ascii")
 
     def exit_config_mode(self):
         self._ssh.send("end\n")
         time.sleep(0.5)
-        result = self._ssh.recv(self._MAX_READ).decode("ascii")
-        return result
+        return self._ssh.recv(self._MAX_READ).decode("ascii")
 
     def send_config_commands(self, commands):
         result = self.config_mode()

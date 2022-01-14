@@ -6,14 +6,11 @@ def configure_intf(intf_name, ip, mask):
 
 # ipython [10]
 def configure_intf(intf_name, ip, mask):
-    config = f'interface {intf_name}\nip address {ip} {mask}'
-    return config
+    return f'interface {intf_name}\nip address {ip} {mask}'
 
 # ipython [14]
 def configure_intf(intf_name, ip, mask):
-    config = f'interface {intf_name}\nip address {ip} {mask}'
-    return config
-    print('Configureation ready')
+    return f'interface {intf_name}\nip address {ip} {mask}'
 
 # ipython [16]
 def configure_intf(intf_name, ip, mask):

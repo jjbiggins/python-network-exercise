@@ -2,11 +2,7 @@ from check_ip_function import check_ip
 
 
 def return_correct_ip(ip_addresses):
-    correct = []
-    for ip in ip_addresses:
-        if check_ip(ip):
-            correct.append(ip)
-    return correct
+    return [ip for ip in ip_addresses if check_ip(ip)]
 
 
 print("Checking the list of IP addresses")

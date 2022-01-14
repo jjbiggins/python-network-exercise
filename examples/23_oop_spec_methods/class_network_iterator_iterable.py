@@ -14,12 +14,11 @@ class Network:
 
     def __next__(self):
         print("Calling __next__")
-        if self._index < len(self.addresses):
-            current_address = self.addresses[self._index]
-            self._index += 1
-            return current_address
-        else:
+        if self._index >= len(self.addresses):
             raise StopIteration
+        current_address = self.addresses[self._index]
+        self._index += 1
+        return current_address
 
 
 net1 = Network("10.1.1.192/30")

@@ -105,7 +105,7 @@ def test_function_return_value_continue_yes(
 
     assert return_value != None, "The function returns None"
     assert type(return_value) == tuple, "The function must return a tuple"
-    assert 2 == len(return_value) and all(
+    assert len(return_value) == 2 and all(
         type(item) == dict for item in return_value
     ), "The function must return a tuple with two dicts"
     correct_good, correct_bad = correct_return_value
@@ -138,7 +138,7 @@ def test_function_return_value_continue_no(
 
     assert return_value != None, "The function returns None"
     assert type(return_value) == tuple, "The function must return a tuple"
-    assert 2 == len(return_value) and all(
+    assert len(return_value) == 2 and all(
         type(item) == dict for item in return_value
     ), "The function must return a tuple with two dicts"
     return_good, return_bad = return_value

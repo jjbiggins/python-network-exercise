@@ -24,8 +24,7 @@ class CiscoTelnet:
         """Sending show command"""
         self.telnet.write(command.encode("utf-8") + b"\n")
         time.sleep(2)
-        command_output = self.telnet.read_very_eager().decode("utf-8")
-        return command_output
+        return self.telnet.read_very_eager().decode("utf-8")
 
 
 if __name__ == "__main__":

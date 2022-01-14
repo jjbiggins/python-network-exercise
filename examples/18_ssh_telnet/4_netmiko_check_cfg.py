@@ -12,8 +12,7 @@ def cfg_comand(session, section, command):
         print("Команды уже настроены")
         return
 
-    result = session.send_config_set([section, command])
-    return result
+    return session.send_config_set([section, command])
 
 
 def send_cfg_commands(device, section, command):

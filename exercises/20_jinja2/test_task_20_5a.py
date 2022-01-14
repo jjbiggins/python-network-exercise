@@ -16,10 +16,12 @@ if not isinstance(__loader__, AssertionRewritingHook):
 
 
 def get_interface_cfg(cfg_output):
-    interface_cfg = []
-    for line in cfg_output.splitlines():
-        if "(config-if)" in line:
-            interface_cfg.append(re.sub(r"\S+\(config-if\)# *", "", line))
+    interface_cfg = [
+        re.sub(r"\S+\(config-if\)# *", "", line)
+        for line in cfg_output.splitlines()
+        if "(config-if)" in line
+    ]
+
     return "\n".join(interface_cfg)
 
 

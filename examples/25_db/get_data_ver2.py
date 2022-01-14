@@ -14,7 +14,7 @@ query_dict = {
 key, value = sys.argv[1:]
 keys = query_dict.keys()
 
-if not key in keys:
+if key not in keys:
     print("Enter key from {}".format(", ".join(keys)))
 else:
     conn = sqlite3.connect(db_filename)
