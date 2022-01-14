@@ -4,8 +4,7 @@ def config_interface(intf_name, ip_address, mask):
     interface = f'interface {intf_name}'
     no_shut = 'no shutdown'
     ip_addr = f'ip address {ip_address} {mask}'
-    result = [interface, no_shut, ip_addr]
-    return result
+    return [interface, no_shut, ip_addr]
 
 interfaces_info = [['Fa0/1', '10.0.1.1', '255.255.255.0'],
                    ['Fa0/2', '10.0.2.1', '255.255.255.0'],

@@ -8,10 +8,7 @@ def ping_ip(ip_address):
         stderr=subprocess.PIPE,
         encoding="utf-8",
     )
-    if reply.returncode == 0:
-        return True
-    else:
-        return False
+    return reply.returncode == 0
 
 
 ip1 = "8.8.8.8"

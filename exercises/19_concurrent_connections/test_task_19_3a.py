@@ -54,9 +54,11 @@ def test_function_return_value_from_single_device(
     device_ip = device["host"]
     commands = command_dict[device_ip]
     ssh = create_ssh_connect(device)
-    output = ""
-    for command in commands:
-        output += f"{ssh.find_prompt()}{command}\n{ssh.send_command(command)}\n"
+    output = "".join(
+        f"{ssh.find_prompt()}{command}\n{ssh.send_command(command)}\n"
+        for command in commands
+    )
+
     ssh.disconnect()
     correct_output = strip_empty_lines(output)
     dest_filename = tmpdir.mkdir("test_tasks").join("task_19_3.txt")

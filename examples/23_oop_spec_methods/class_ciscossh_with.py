@@ -35,8 +35,7 @@ class CiscoSSH:
     def send_show_command(self, command):
         self.ssh.send(command + "\n")
         time.sleep(2)
-        result = self.ssh.recv(5000).decode("ascii")
-        return result
+        return self.ssh.recv(5000).decode("ascii")
 
 
 with CiscoSSH("192.168.100.1", "cisco", "cisco", "cisco") as r1:

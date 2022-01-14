@@ -17,8 +17,7 @@ def count_calls(func):
     def wrapper(*args, **kwargs):
         __tracebackhide__ = True
         wrapper.total_calls += 1
-        result = func(*args, **kwargs)
-        return result
+        return func(*args, **kwargs)
 
     wrapper.total_calls = 0
     return wrapper

@@ -6,7 +6,7 @@ from netmiko import ConnectHandler
 
 @pytest.fixture()
 def topology_with_dupl_links():
-    topology = {
+    return {
         ("R1", "Eth0/0"): ("SW1", "Eth0/1"),
         ("R2", "Eth0/0"): ("SW1", "Eth0/2"),
         ("R2", "Eth0/1"): ("SW2", "Eth0/11"),
@@ -17,12 +17,11 @@ def topology_with_dupl_links():
         ("SW1", "Eth0/2"): ("R2", "Eth0/0"),
         ("SW1", "Eth0/3"): ("R3", "Eth0/0"),
     }
-    return topology
 
 
 @pytest.fixture()
 def normalized_topology_example():
-    normalized_topology = {
+    return {
         ("R1", "Eth0/0"): ("SW1", "Eth0/1"),
         ("R2", "Eth0/0"): ("SW1", "Eth0/2"),
         ("R2", "Eth0/1"): ("SW2", "Eth0/11"),
@@ -30,7 +29,6 @@ def normalized_topology_example():
         ("R3", "Eth0/1"): ("R4", "Eth0/0"),
         ("R3", "Eth0/2"): ("R5", "Eth0/0"),
     }
-    return normalized_topology
 
 
 @pytest.fixture(scope="module")

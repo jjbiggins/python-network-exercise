@@ -16,8 +16,7 @@ def create_connection(db_name):
     Function creates a connection  to the database db_name
     and returns Connection object
     """
-    connection = sqlite3.connect(db_name)
-    return connection
+    return sqlite3.connect(db_name)
 
 
 def write_data_to_db(connection, query, data):
@@ -52,8 +51,7 @@ def get_all_from_db(connection, query):
 
     Function returns data received from the database.
     """
-    result = [row for row in connection.execute(query)]
-    return result
+    return list(connection.execute(query))
 
 
 if __name__ == "__main__":

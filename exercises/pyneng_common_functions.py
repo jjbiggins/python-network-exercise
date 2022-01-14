@@ -26,10 +26,7 @@ def unified_columns_output(output):
 
 def delete_empty_lines(output):
     output = output.replace("\r\n", "\n")
-    lines = []
-    for line in output.strip().split("\n"):
-        if line.strip():
-            lines.append(line.rstrip())
+    lines = [line.rstrip() for line in output.strip().split("\n") if line.strip()]
     return "\n".join(lines)
 
 
@@ -111,10 +108,9 @@ def read_all_csv_content_as_list(csv_filename):
 
 
 def unify_topology_dict(topology_dict):
-    unified_topology_dict = {
+    return {
         min(key, value): max(key, value) for key, value in topology_dict.items()
     }
-    return unified_topology_dict
 
 
 def render_jinja_template(template, data_dict):
